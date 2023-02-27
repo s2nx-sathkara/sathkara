@@ -131,7 +131,7 @@ const Home = () => {
                             <option value='uva'>Gampaha</option>
                             <option value='southern'>kalutara</option>
                         </select>
-                        <input type="number" className='anp-input' placeholder='City'/>
+                        <input type="text" className='anp-input' placeholder='City'/>
                     </div>
                 </div>
                 <div className='anp-input-box'>

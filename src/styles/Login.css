@@ -20,7 +20,13 @@
 .login-img{
     width: 50vw;
     height: 100vh;
-    background: url("../assets/images/pexels-julie-viken-593451.jpg");
+    background: url("../assets/images/luis-melendez-Pd4lRfKo16U-unsplash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.reg-img{
+    background: url("../assets/images/artur-tumasjan-qLzWvcQq-V8-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -40,10 +46,11 @@
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 4px;
+    margin-bottom: 1.5em;
 }
 
 .login-input-box{
-    padding: 1em;
+    /* padding: 1em; */
 }
 
 .login-label{
@@ -57,6 +64,7 @@
     border-radius: 10px;
     border: none;
     padding: .5em 1em;
+    margin-bottom: 1em;
 }
 
 .login-btn{
