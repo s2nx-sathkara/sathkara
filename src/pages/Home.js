@@ -1,8 +1,17 @@
-import { faBolt, faClock, faLocation, faPlus, faSearch, faTag, faTimes, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faBolt, faClock, faEdit, faEllipsis, faLocation, faPlus, faSearch, faTag, faTimes, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 const Home = () => {
+    const viewAddNewPost = () => {
+        const anp = document.querySelector('.add-new-post');
+        anp.classList.add('add-new-post-v');
+    }
+
+    const closeAddNewPost = () => {
+        const anp = document.querySelector('.add-new-post');
+        anp.classList.remove('add-new-post-v');
+    }
   return (
     <div>
         <div className='top-bar'>
@@ -25,6 +34,7 @@ const Home = () => {
                 <div className='side-menu-item'>organs</div>
                 <div className='side-menu-item'>my posts</div>
                 <div className='side-menu-item'>contacted posts</div>
+                <div className='side-menu-item settings-btn'>settings</div>
             </div>
             <div className='content'>
                 <div className='app-feed'>
@@ -57,10 +67,39 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <div className='add-btn'>
+            <div className='filter-menu'>
+                <div className='filter-menu-item'>
+                    <div className='filter-menu-item-check'>
+                        <input type='checkbox' className='filter-menu-item-cb'/>
+                        <div className='filter-menu-item-name'>filter by province</div>
+                    </div>
+                    <select className='anp-select'>
+                            <option value=''>Province</option>
+                            <option value='western'>western</option>
+                            <option value='uva'>uva</option>
+                            <option value='southern'>southern</option>
+                    </select>
+                </div>
+                <div className='filter-menu-item'>
+                <div className='filter-menu-item-check'>
+                        <input type='checkbox' className='filter-menu-item-cb'/>
+                        <div className='filter-menu-item-name'>filter by district</div>
+                    </div>
+                    <select className='anp-select'>
+                            <option value=''>Dristrict</option>
+                            <option value='western'>Colombo</option>
+                            <option value='uva'>Gampaha</option>
+                            <option value='southern'>kalutara</option>
+                    </select>
+                </div>
+            </div>
+            <div className='add-btn' onClick={viewAddNewPost}>
                 <FontAwesomeIcon icon={faPlus} size="lg"/>
             </div>
             <div className='add-new-post'>
+                <div className='anp-close-row'>
+                    <FontAwesomeIcon icon={faTimes} className="anp-close" size='lg' onClick={closeAddNewPost}/>
+                </div>
                 <div className='anp-title'>creating a new pharmaceutical request</div>
                 <div className='anp-input-box'>
                     <div className='anp-label'>medicine name (pharmaceutical tag)</div>
@@ -111,6 +150,16 @@ const Home = () => {
 const Post = ({post_id, name, medicine, duration, urgency, location, imgPath, caption}) => {
     return (
         <div className='post'>
+             <div className='anp-close-row'>
+                <FontAwesomeIcon icon={faEllipsis} className="anp-close post-more"  onClick={(e)=>{
+                    let more_actions = e.target.parentElement.nextSibling;
+                    more_actions.classList.toggle("more-actions-v")
+                }}/>
+            </div>
+            <div className='more-actions'>
+                <FontAwesomeIcon icon={faEdit} className='more-action'/>
+                <FontAwesomeIcon icon={faTrash} className='more-action'/>
+            </div>
             <div className='post-header'>
                 <div className='post-profile profile-img'></div>
                 <div className='post-details'>

@@ -1,0 +1,89 @@
+.login{
+    width: 100vw;
+    height: 100vh;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-logo{
+    width: 80px;
+    height: 80px;
+    background: black;
+    background: url('../assets/sathkara_logo.png');
+    background-size: contain    ;
+    margin-right: 1em;
+    margin-bottom: 2em;
+}
+
+.login-img{
+    width: 50vw;
+    height: 100vh;
+    background: url("../assets/images/pexels-julie-viken-593451.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.login-content{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.log-in-txt{
+    color:blue;
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.login-input-box{
+    padding: 1em;
+}
+
+.login-label{
+    margin-bottom: .3em;
+    text-transform: capitalize;
+    color:rgba(0,0,0,.6);
+}
+
+.login-input{
+    background: #f5f5f5;
+    border-radius: 10px;
+    border: none;
+    padding: .5em 1em;
+}
+
+.login-btn{
+    color:#fff;
+    background: blue;
+    text-transform: capitalize;
+    padding:.5em 2em;
+    border-radius: 10px;
+    margin: 1em 0;
+    margin-bottom: 1.5em;
+}
+
+.login-btn:hover{
+    color:blue;
+    background: #fff;
+    border:1px solid blue;
+    cursor: pointer;
+}
+
+.login-q{
+    color:rgba(0,0,0,.4);
+    font-size: 12px;
+}
+
+.reg-txt{
+    margin-left: .5em;
+    color: blue;
+    text-decoration: none;
+    text-transform: capitalize;
+}
