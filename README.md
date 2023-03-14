@@ -40,7 +40,7 @@ Integrated chat to contact users.
 Point-based ranking system to identify reliable suggestions. 
 Reports on overall platform performance for getting a better understanding of the system
 
-![activity diagram](https://drive.google.com/file/d/1QsfKCdTa5OyA5SinFrshMZjePJQbkEjk/view?usp=share_link)
+![activity diagram](https://github.com/s2nx-sathkara/sathkara/blob/master/activity_diagram(1).png)
 
 ![usecase diagram](https://drive.google.com/file/d/1QsfKCdTa5OyA5SinFrshMZjePJQbkEjk/view?usp=share_link](https://drive.google.com/file/d/1S74mKMcEpW5VE4PCVJvY6SHH49CAJflN/view?usp=share_link))
 
