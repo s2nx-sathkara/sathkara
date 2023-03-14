@@ -40,6 +40,10 @@ Integrated chat to contact users.
 Point-based ranking system to identify reliable suggestions. 
 Reports on overall platform performance for getting a better understanding of the system
 
+![activity diagram](https://drive.google.com/file/d/1QsfKCdTa5OyA5SinFrshMZjePJQbkEjk/view?usp=share_link)
+
+![usecase diagram](https://drive.google.com/file/d/1QsfKCdTa5OyA5SinFrshMZjePJQbkEjk/view?usp=share_link](https://drive.google.com/file/d/1S74mKMcEpW5VE4PCVJvY6SHH49CAJflN/view?usp=share_link))
+
 
 # Technologies Used
 
