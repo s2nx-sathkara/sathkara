@@ -2,12 +2,15 @@ import { faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faBolt, faClock, faEdit, faEllipsis, faLocation, faMessage, faPhone, faPlus, faSearch, faTag, faTimes, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
-import { getPosts } from '../services/config'
+import { getPosts, getUser } from '../services/config'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+    let today = Number(new Date().toJSON().slice(8, 10));
+
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
+    const [user, setUSer] = useState([]);
 
     const checkAuthStatus = async () => {
         let isLoggedIn = localStorage.getItem('logged_in');
@@ -15,6 +18,11 @@ const Home = () => {
         if(!isLoggedIn || isLoggedIn != '1'){
             navigate('login');
         }
+    }
+
+    const User = async () =>{
+        let user = await getUser(localStorage.getItem('uId'));
+        setUSer(user[0]);
     }
 
     const populateFeed = async () => {
@@ -43,6 +51,7 @@ const Home = () => {
     useEffect(()=>{
         checkAuthStatus()
         populateFeed()
+        User()
     },[])
 
   return (
@@ -56,7 +65,7 @@ const Home = () => {
                 </div>
             </div>
             <div className='profile-box'>
-                <div className='profile-name'>Jon Doe</div>
+                <div className='profile-name'>{user.uName}</div>
                 <div className='profile-img'></div>
             </div>
         </div>
@@ -74,9 +83,9 @@ const Home = () => {
                     {posts.length>0?posts.map((post)=>{
                         return (
                             <Post
-                                name={"Jon Doe"}
+                                name={post.user.uName}
                                 medicine={post.pharmaceutical}
-                                duration={"2 days"}
+                                duration={String(Number(post.rExpDate.slice(8,10))-today)+" days"}
                                 urgency={post.rUrgency}
                                 location={post.rCity}
                                 imgPath="pexels-julie-viken-593451.jpg"

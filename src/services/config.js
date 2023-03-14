@@ -1,7 +1,7 @@
-export const URL = "http://localhost:5000";
+export const URL = "http://ec2-54-255-1-182.ap-southeast-1.compute.amazonaws.com:5000";
 
 const headers = {
-    "Accept": "application/json",
+    "Accept": "*/*",
     "Content-Type": "application/json",
 };
 
@@ -23,7 +23,7 @@ export const getUser = async (uId) => {
         method:"GET",
     }
 
-    const fetchRes = await fetch(URL + '/users/all/' + uId, options);
+    const fetchRes = await fetch(URL + '/users/' + uId, options);
     if(fetchRes.status == 200) return await fetchRes.json();
     return null;    
 }
@@ -58,6 +58,8 @@ export const signUpUser = async (data) => {
     let res = null;
     
     var raw = JSON.stringify(data);
+
+    console.log(raw);
     
     var requestOptions = {
       method: 'POST',
@@ -66,39 +68,33 @@ export const signUpUser = async (data) => {
       redirect: 'follow'
     };
     
-    await fetch("http://localhost:5000/users/signup", requestOptions)
+    await fetch("http://ec2-54-255-1-182.ap-southeast-1.compute.amazonaws.com:5000/users/signup", requestOptions)
       .then(response => response.json())
       .then(result => res = result)
       .catch(error => console.log('error', error));
-    
+
     return res;
 
 } 
 
 export const signInUser = async (data) => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    let res = null;
-    
-    var raw = JSON.stringify({
-      "uEmail": "shiwanthah@gmail.com",
-      "uPassword": "test1234"
-    });
-    
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-    
-    await fetch("http://localhost:5000/users/signin", requestOptions)
-      .then(response => response.json())
-      .then(result => res = result)
-      .catch(error => console.log('error', error));
-    
-    return res
+        let headersList = {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+        }
+       
+        let bodyContent = JSON.stringify(data);
+       
+       let response = await fetch("http://ec2-54-255-1-182.ap-southeast-1.compute.amazonaws.com:5000/users/signin", { 
+         method: "POST",
+         mode: "cors",
+         body: bodyContent,
+         headers: headersList
+       });
+       
+       let d = await response.json();
+       
+       return d;
 } 
 
 export const getPosts = async () => {

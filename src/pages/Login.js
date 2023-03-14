@@ -10,8 +10,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const _signInUser = async (email, password) => {
+    //console.log(email,password);
     if(email && password) {
-      let signedIn = await signInUser({uMail:email, uPassword: password});
+      let signedIn = await signInUser({uEmail:email, uPassword: password});
       console.log(signedIn)
       if(signedIn) {
         localStorage.setItem("logged_in", "1");
@@ -22,7 +23,7 @@ const Login = () => {
       }
     } else {
       alert("Invalid credentials");
-    }
+    } 
   }
 
   return (
