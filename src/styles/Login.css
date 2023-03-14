@@ -13,6 +13,7 @@
     background: black;
     background: url('../assets/sathkara_logo.png');
     background-size: contain    ;
+    background-repeat: no-repeat;
     margin-right: 1em;
     margin-bottom: 2em;
 }

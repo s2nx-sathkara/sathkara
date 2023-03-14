@@ -1,8 +1,28 @@
-import { faBolt, faClock, faEdit, faEllipsis, faLocation, faPlus, faSearch, faTag, faTimes, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import { faBolt, faClock, faEdit, faEllipsis, faLocation, faMessage, faPhone, faPlus, faSearch, faTag, faTimes, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getPosts } from '../services/config'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+    const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
+
+    const checkAuthStatus = async () => {
+        let isLoggedIn = localStorage.getItem('logged_in');
+        console.log(isLoggedIn)
+        if(!isLoggedIn || isLoggedIn != '1'){
+            navigate('login');
+        }
+    }
+
+    const populateFeed = async () => {
+        let posts = await getPosts();
+        posts = await posts.json();
+        setPosts(posts);
+    }
+
     const viewAddNewPost = () => {
         const anp = document.querySelector('.add-new-post');
         anp.classList.add('add-new-post-v');
@@ -12,6 +32,19 @@ const Home = () => {
         const anp = document.querySelector('.add-new-post');
         anp.classList.remove('add-new-post-v');
     }
+
+    const [pharmaceutical, setPharmaceutical] = useState();
+    const [expDate, setExpDate] = useState();
+    const [province, setProvince] = useState();
+    const [district, setDistrict] = useState();
+    const [city, setCity] = useState();
+    const [caption, setCaption] = useState();
+
+    useEffect(()=>{
+        checkAuthStatus()
+        populateFeed()
+    },[])
+
   return (
     <div>
         <div className='top-bar'>
@@ -38,33 +71,19 @@ const Home = () => {
             </div>
             <div className='content'>
                 <div className='app-feed'>
-                    <Post
-                        name={"Jon Doe"}
-                        medicine={"Panadol"}
-                        duration={"2 days"}
-                        urgency={"Urgent"}
-                        location={"Colombo"}
-                        imgPath="pexels-julie-viken-593451.jpg"
-                        caption="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                    />
-                    <Post
-                        name={"Sarah Johns"}
-                        medicine={"Piriton"}
-                        duration={"1 month"}
-                        urgency={"Moderate"}
-                        location={"Colombo"}
-                        imgPath="pexels-julie-viken-593451.jpg"
-                        caption="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                    />
-                    <Post
-                        name={"Jon Doe"}
-                        medicine={"Panadol"}
-                        duration={"2 days"}
-                        urgency={"Urgent"}
-                        location={"Colombo"}
-                        imgPath="pexels-julie-viken-593451.jpg"
-                        caption="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                    />
+                    {posts.length>0?posts.map((post)=>{
+                        return (
+                            <Post
+                                name={"Jon Doe"}
+                                medicine={post.pharmaceutical}
+                                duration={"2 days"}
+                                urgency={post.rUrgency}
+                                location={post.rCity}
+                                imgPath="pexels-julie-viken-593451.jpg"
+                                caption={post.rDescription}
+                            />
+                        );
+                    }):''}
                 </div>
             </div>
             <div className='filter-menu'>
@@ -103,39 +122,52 @@ const Home = () => {
                 <div className='anp-title'>creating a new pharmaceutical request</div>
                 <div className='anp-input-box'>
                     <div className='anp-label'>medicine name (pharmaceutical tag)</div>
-                    <input type="text" className='anp-input'/>
+                    <input type="text" className='anp-input' onChange={
+                        (e) => {
+                            setPharmaceutical(e.target.value)
+                        }}
+                    />
                 </div>
                 <div className='anp-input-box'>
-                    <div className='anp-label'>duration</div>
-                    <div className='anp-select-box'>
-                        <select className='anp-select'>
-                            <option value='hours'>hours</option>
-                            <option value='days' selected>days</option>
-                            <option value='months'>months</option>
-                        </select>
-                        <input type="number" className='anp-input'/>
-                    </div>
+                    <div className='anp-label'>expire date</div>
+                    <input type="date" className='anp-input' onChange={
+                        (e) => {
+                            setExpDate(e.target.value)
+                        }
+                    }/>
                 </div>
                 <div className='anp-input-box'>
                     <div className='anp-label'>location</div>
                     <div className='anp-select-box'>
-                        <select className='anp-select'>
+                        <select className='anp-select' onChange={
+                        (e) => {
+                            setProvince(e.target.value)
+                        }}>
                             <option value=''>Province</option>
                             <option value='western'>western</option>
                             <option value='uva'>uva</option>
                             <option value='southern'>southern</option>
                         </select>
-                        <select className='anp-select'>
+                        <select className='anp-select' onChange={
+                        (e) => {
+                            setDistrict(e.target.value)
+                        }}>
                             <option value=''>Dristrict</option>
                             <option value='western'>Colombo</option>
                             <option value='uva'>Gampaha</option>
                             <option value='southern'>kalutara</option>
                         </select>
-                        <input type="text" className='anp-input' placeholder='City'/>
+                        <input type="text" className='anp-input' placeholder='City' onChange={
+                        (e) => {
+                            setCity(e.target.value)
+                        }}/>
                     </div>
                 </div>
                 <div className='anp-input-box'>
-                    <div className='anp-label'>caption</div>
+                    <div className='anp-label' onChange={
+                        (e) => {
+                            setCaption(e.target.value)
+                        }}>caption</div>
                     <textarea className='anp-input' rows={10}></textarea>
                 </div>
                 <div className='anp-add-img'>
@@ -161,7 +193,9 @@ const Post = ({post_id, name, medicine, duration, urgency, location, imgPath, ca
                 <FontAwesomeIcon icon={faTrash} className='more-action'/>
             </div>
             <div className='post-header'>
-                <div className='post-profile profile-img'></div>
+                <div className='post-profile profile-img' onClick={()=>{
+                    alert("Sorry! Profile View is still under development. :(")
+                }}></div>
                 <div className='post-details'>
                     <div className='post-name'>{name}</div>
                     <div className='post-tags'>
@@ -194,7 +228,20 @@ const Post = ({post_id, name, medicine, duration, urgency, location, imgPath, ca
             </div>
             <img src={require(`../assets/images/${imgPath}`)} className='post-img' alt='post image'/>
             <div className='post-caption'>{caption}</div>
-            <div className='post-contact'>contact</div>
+            <div className='post-contact' onClick={(e)=>{
+                let opts = e.target.nextSibling;
+                if(opts.style.display == 'flex') {
+                    opts.style.display = 'none';
+                } else {
+                    opts.style.display = 'flex';
+                }
+            }}>contact</div>
+            <div className='contact-options'>
+                <FontAwesomeIcon icon={faPhone} size="2x" className='contact-logo phone'/>
+                <FontAwesomeIcon icon={faMessage} size="2x" className='contact-logo message'/>
+                <FontAwesomeIcon icon={faWhatsapp} size="2x" className='contact-logo whatsapp'/>
+                <FontAwesomeIcon icon={faFacebook} size="2x" className='contact-logo facebook'/>
+            </div>
         </div>
     );
 }
