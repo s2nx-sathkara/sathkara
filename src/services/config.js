@@ -1,4 +1,4 @@
-export const URL = "http://ec2-54-255-1-182.ap-southeast-1.compute.amazonaws.com:5000";
+export const URL = "http://localhost:5000";
 
 const headers = {
     "Accept": "*/*",
@@ -68,7 +68,7 @@ export const signUpUser = async (data) => {
       redirect: 'follow'
     };
     
-    await fetch("http://ec2-54-255-1-182.ap-southeast-1.compute.amazonaws.com:5000/users/signup", requestOptions)
+    await fetch(URL + "/users/signup", requestOptions)
       .then(response => response.json())
       .then(result => res = result)
       .catch(error => console.log('error', error));
@@ -85,7 +85,7 @@ export const signInUser = async (data) => {
        
         let bodyContent = JSON.stringify(data);
        
-       let response = await fetch("http://ec2-54-255-1-182.ap-southeast-1.compute.amazonaws.com:5000/users/signin", { 
+       let response = await fetch(URL + "/users/signin", { 
          method: "POST",
          mode: "cors",
          body: bodyContent,
