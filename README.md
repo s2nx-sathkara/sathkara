@@ -13,3 +13,7 @@ MERN stack is used to build the platform due to its flexibility and scalability.
 - Client Site - React JS (For web)
 - API - Node JS, Express JS (Hosted on AWS)
 - Database - Mongo DB
+
+## CodeCon 3.0
+
+This app was developed for SLIIT CodeCon 3.0 hackathon and secured the first place.
